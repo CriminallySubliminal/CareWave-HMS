@@ -1,0 +1,38 @@
+void register_user(struct User users[], int *num_of_users){
+struct User newUser;
+while(1){
+    char newUsername[MAX_UNAME_LENGTH];
+    system("cls");
+    printf(YEL "\n\n\n\t\t\t\t\t\t\t\t\tREGISTER HERE" reset);
+    printf("Enter your username");
+    scanf("%s",newUsername);
+    int userIndex = isUserExist(newUsername,users,*num_of_users);
+    if(userIndex!=-1){
+        printf( HGRN "\nProvided Username is in use. Please select a different username.\n" reset );
+    }
+    else{
+        strcpy(newUser.username,newUsername);
+        break;
+    }
+    char newPassword[MAX_PASSWORD_LENGTH];
+    while(1){
+        printf(HMAG "Please enter a password within 8 characters: " reset);
+        if(scanf("%s", newPassword)!=1 && !isValidPassword(newPassword)){
+            printf("Please enter a 8 character password with at least one uppercase character and one number!");
+        }
+        else{
+            strcpy(newUser.password,newPassword);
+            break;
+        }
+    }
+    users[*num_of_users] = newUser;
+    *num_of_users++;
+    writeUserDataToFile(newUser);
+    createNewRecord(newUser.username);
+
+    printf(HGRN "\nAccount registered successfully!" reset);
+    delay(1);
+    printf(HCYN "\nYou're now being logged in...\n" reset);
+    delay(2);
+    return isUserExist(newUser.username, users, *num_of_users);
+}
